@@ -47,5 +47,8 @@ do "$do/3_analysis/Tab6.do"
 
 do "$do/3_analysis/Fig3.do"
 
-do "$do/3_analysis/FigB2_estimate.do"
-do "$do/3_analysis/FigB2_graphing.do"
+do "$do/3_analysis/TabA2.do"
+
+do "$do/3_analysis/FigB1_estimate.do"
+do "$do/3_analysis/FigB1_graphing.do"
+do "$do/3_analysis/FigB2.do"
