@@ -1,4 +1,4 @@
-This repository contains codes for the paper titled "Does Undue Preference Lead to Unfairness? The Impact of Teacher Favoritism on Teacher Treatment and Student Achievement."
+This repository contains codes for the paper titled "__Does Undue Preference Lead to Unfairness? The Impact of Teacher Favoritism on Teacher Treatment and Student Achievement.__"
 
 **Data availability**
 
