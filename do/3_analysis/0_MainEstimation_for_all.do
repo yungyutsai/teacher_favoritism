@@ -11,7 +11,53 @@ use "$wdata/J1_for_analysis.dta", clear
 
 gen newgroup = .
 
-** Table 2, 3, 4
+** Table 2 (Pygmalion effect)
+
+gen attendhs2 = hopeattendhs_w3 - attendhs
+gen expecteduyr2 = expecteduyr_w3 - expecteduyr
+gen sel_concept2 = sel_concept_w3 - sel_concept
+
+foreach x in female mainlander achieve{ //Favoritism
+	replace newgroup = `x'
+	foreach z in 1 5{ //Baseline or Leave-one-out Approach
+		if ("`z'" == "1") local method = "bl" //baseline
+		if ("`z'" == "5") local method = "lo" //leave-one-out
+		cap drop favoritism
+		egen favoritism = std(favoritism_`x'_`z')
+		loc c = 0
+		foreach y in attendhs_te expecteduyr_te attendhs2 expecteduyr2 { //Outcomes
+			loc c = `c' + 1
+			cap drop std`y'
+			egen std`y' = std(`y')
+			
+			areg std`y' favoritism c.favoritism#1.newgroup c.favoritism#2.newgroup i.newgroup $student $student_group $teacher $teacher_group, a(schid) vce(cl claid)
+			cap parmest , saving("$wdata/bootstrap/Main_Tab5_`x'_`y'_`method'_c`c'.dta", replace) idstr("Tab5,`x',`y',`method',c`c'") idnum(0)
+		}
+	}
+}
+
+** Table 3 (Teacher student relationship)
+
+foreach x in female mainlander achieve{ //Favoritism
+	replace newgroup = `x'
+	foreach z in 1 5{ //Baseline or Leave-one-out Approach
+		if ("`z'" == "1") local method = "bl" //baseline
+		if ("`z'" == "5") local method = "lo" //leave-one-out
+		cap drop favoritism
+		egen favoritism = std(favoritism_`x'_`z')
+		loc c = 0
+		foreach y in consultmentor teacherconsultacademic teacherconsultemotion teacherconsultfriend{ //Outcomes
+			loc c = `c' + 1
+			cap drop std`y'
+			egen std`y' = std(`y')
+			
+			areg std`y' favoritism c.favoritism#1.newgroup c.favoritism#2.newgroup i.newgroup $student $student_group $teacher $teacher_group, a(schid) vce(cl claid)
+			cap parmest , saving("$wdata/bootstrap/Main_Tab6_`x'_`y'_`method'_c`c'.dta", replace) idstr("Tab6,`x',`y',`method',c`c'") idnum(0)
+		}
+	}
+}
+
+** Table 4, 5, 6 (Achievement)
 foreach x in female mainlander achieve{ //Favoritism
 	if ("`x'" == "female") local t = 2
 	if ("`x'" == "mainlander") local t = 3
@@ -67,53 +113,7 @@ cap parmest , saving("$wdata/bootstrap/Main_Fig3_bl.dta", replace) idstr("Fig3,,
 areg stdbct favor_female_lo#favor_mainlander_lo#favor_achieve_lo favoritism_female_bl#favoritism_mainlander_bl#favoritism_achieve_bl $student $teacher, a(schid) vce(cl claid)
 cap parmest , saving("$wdata/bootstrap/Main_Fig3_lo.dta", replace) idstr("Fig3,,bct,lo,") idnum(0)
 
-** Table 5 (Pygmalion effect)
-
-gen attendhs2 = hopeattendhs_w3 - attendhs
-gen expecteduyr2 = expecteduyr_w3 - expecteduyr
-gen sel_concept2 = sel_concept_w3 - sel_concept
-
-foreach x in female mainlander achieve{ //Favoritism
-	replace newgroup = `x'
-	foreach z in 1 5{ //Baseline or Leave-one-out Approach
-		if ("`z'" == "1") local method = "bl" //baseline
-		if ("`z'" == "5") local method = "lo" //leave-one-out
-		cap drop favoritism
-		egen favoritism = std(favoritism_`x'_`z')
-		loc c = 0
-		foreach y in attendhs_te expecteduyr_te attendhs2 expecteduyr2 sel_concept2 { //Outcomes
-			loc c = `c' + 1
-			cap drop std`y'
-			egen std`y' = std(`y')
-			
-			areg std`y' favoritism c.favoritism#1.newgroup c.favoritism#2.newgroup i.newgroup $student $student_group $teacher $teacher_group, a(schid) vce(cl claid)
-			cap parmest , saving("$wdata/bootstrap/Main_Tab5_`x'_`y'_`method'_c`c'.dta", replace) idstr("Tab5,`x',`y',`method',c`c'") idnum(0)
-		}
-	}
-}
-
-** Table 6 (Teacher student relationship)
-
-foreach x in female mainlander achieve{ //Favoritism
-	replace newgroup = `x'
-	foreach z in 1 5{ //Baseline or Leave-one-out Approach
-		if ("`z'" == "1") local method = "bl" //baseline
-		if ("`z'" == "5") local method = "lo" //leave-one-out
-		cap drop favoritism
-		egen favoritism = std(favoritism_`x'_`z')
-		loc c = 0
-		foreach y in consultmentor teacherconsultacademic teacherconsultemotion teacherconsultfriend{ //Outcomes
-			loc c = `c' + 1
-			cap drop std`y'
-			egen std`y' = std(`y')
-			
-			areg std`y' favoritism c.favoritism#1.newgroup c.favoritism#2.newgroup i.newgroup $student $student_group $teacher $teacher_group, a(schid) vce(cl claid)
-			cap parmest , saving("$wdata/bootstrap/Main_Tab6_`x'_`y'_`method'_c`c'.dta", replace) idstr("Tab6,`x',`y',`method',c`c'") idnum(0)
-		}
-	}
-}
-
-** Figure B1 (Placebo Test)
+** Figure B3 (Placebo Test)
 
 cap gen newgroup = .
 cap gen newgroup2 = .
@@ -130,7 +130,7 @@ foreach x in female mainlander achieve{
 		replace newgroup = `y'
 		foreach z in bct bct_ch bct_en bct_ma bct_sc bct_so{
 			areg std`z' favoritism c.favoritism#1.newgroup c.favoritism#2.newgroup i.newgroup $student $student_group $teacher $teacher_group, a(schid) vce(cl claid)
-			cap parmest , saving("$wdata/bootstrap/Main_FigB1_`x'_`y'_`z'.dta", replace) idstr("FigB1,`x',`y',`z'") idnum(0)
+			cap parmest , saving("$wdata/bootstrap/Main_FigB3_`x'_`y'_`z'.dta", replace) idstr("FigB3,`x',`y',`z'") idnum(0)
 		}
 	}
 }

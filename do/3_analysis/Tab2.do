@@ -4,7 +4,7 @@ set more off
 *** Main Estimates
 use "$wdata/Main_Estimations_All.dta", clear
 
-keep if exhibition == "Tab5"
+keep if exhibition == "Tab2"
 
 gen panel = .
 replace panel = 1 if favoritism == "female"
@@ -23,7 +23,7 @@ save "$wdata/coef.dta", replace
 *** Bootestrap Estimates
 use "$wdata/Bootstrap_Estimations_All", clear
 
-keep if exhibition == "Tab5"
+keep if exhibition == "Tab2"
 
 gen panel = .
 replace panel = 1 if favoritism == "female"
@@ -89,5 +89,5 @@ replace parm = "Favoritism # HighAchiever" if parm == "2.newgroup#c.favoritism" 
 drop panel row
 
 ** export table
-export excel "$tables/Tab5.xlsx", replace
+export excel "$tables/Tab2.xlsx", replace
 

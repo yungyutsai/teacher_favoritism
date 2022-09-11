@@ -1,7 +1,7 @@
 use "$wdata/Main_Estimations_All.dta", clear
 ap using "$wdata/Bootstrap_Estimations_All"
 
-keep if exhibition == "FigB1"
+keep if exhibition == "FigB3"
 keep if parm == "2.newgroup#c.favoritism" | (parm == "1.newgroup#c.favoritism" & outcome ~= "achieve")
 
 gen xvar = favoritism
@@ -212,6 +212,6 @@ twoway 	(rcap min95 max95 id if xvar == "achievement" & yvar == "achievement" & 
 		8 "Math" 10 "Science" 12 "Social Science") ring(0) pos(6) size(small))
 		
 grc1leg t1 t2 t3 x1 a b c x2 d e f x3 g h i, scheme(s1color) cols(4) hol(1) legendfrom(i) imargin(0 0 0 0) 
-graph export "$figures/FigureB2.eps", as(eps) replace font("Times New Roman")
-graph export "$figures/FigureB2.jpg", as(jpg) replace quality(100)
-graph export "$figures/FigureB2.png", as(png) replace
+graph export "$figures/FigureB3.eps", as(eps) replace font("Times New Roman")
+graph export "$figures/FigureB3.jpg", as(jpg) replace quality(100)
+graph export "$figures/FigureB3.png", as(png) replace

@@ -14,34 +14,6 @@ merge 1:1 stuid using "$wdata/J1_W3.dta"
 drop if _m == 2
 drop _m
 
-merge 1:1 stuid using "$wdata/J1_W6_Student.dta"
-drop if _m == 2
-gen W6 = _m == 3
-drop _m
-
-merge 1:1 stuid using "$wdata/J1_W7_Student.dta"
-drop if _m == 2
-gen W7 = _m == 3
-drop _m
-
-replace gsat = _gsat if gsat == .
-replace gsatscore = _gsatscore if gsatscore == .
-drop _gsat _gsatscore
-
-merge 1:1 stuid using "$wdata/J1_W10_Student.dta"
-drop if _m == 2
-gen W10 = _m == 3
-drop _m
-
-merge 1:1 stuid using "$wdata/J1_W11_Student.dta"
-drop if _m == 2
-gen W11 = _m == 3
-drop _m
-
-replace highestedu = _highestedu if highestedu == .
-replace eduyr = _eduyr if eduyr == .
-drop _eduyr _highestedu
-
 merge m:1 teaid using "$wdata/J1_W2_Teacher_b.dta"
 drop if _m == 2
 drop _m

@@ -1,7 +1,7 @@
 clear
 set more off
 
-forv i = 2(1)4{ //Table
+forv i = 4(1)6{ //Table
 	*** Main Estimates
 	use "$wdata/Main_Estimations_All.dta", clear
 		
@@ -89,10 +89,10 @@ forv i = 2(1)4{ //Table
 
 	** change name of parm
 	replace parm = "Favoritism" if parm == "0.favoritism"
-	replace parm = "Favoritism # Female" if parm == "1.newgroup#c.favoritism" & `i' == 2
-	replace parm = "Favoritism # Mainlander" if parm == "1.newgroup#c.favoritism" & `i' == 3
-	replace parm = "Favoritism # MiddleAchiever" if parm == "1.newgroup#c.favoritism" & `i' == 4
-	replace parm = "Favoritism # HighAchiever" if parm == "2.newgroup#c.favoritism" & `i' == 4
+	replace parm = "Favoritism # Female" if parm == "1.newgroup#c.favoritism" & `i' == 4
+	replace parm = "Favoritism # Mainlander" if parm == "1.newgroup#c.favoritism" & `i' == 5
+	replace parm = "Favoritism # MiddleAchiever" if parm == "1.newgroup#c.favoritism" & `i' == 6
+	replace parm = "Favoritism # HighAchiever" if parm == "2.newgroup#c.favoritism" & `i' == 6
 
 	** export table
 	export excel "$tables/Tab`i'.xlsx", replace
