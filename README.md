@@ -1,6 +1,6 @@
 This repository contains codes for the paper titled "_Does Undue Preference Lead to Unfairness? The Impact of Teacher Favoritism on Teacher Treatment and Student Achievement._"
 
-The paper is avaliable at: https://www.sciencedirect.com/science/article/pii/S2214804322001124#refdata001
+The paper is avaliable at: https://www.sciencedirect.com/science/article/pii/S2214804322001124
 
 **Data availability**
 
