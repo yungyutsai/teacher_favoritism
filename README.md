@@ -1,5 +1,7 @@
 This repository contains codes for the paper titled "_Does Undue Preference Lead to Unfairness? The Impact of Teacher Favoritism on Teacher Treatment and Student Achievement._"
 
+The paper is avaliable at: https://www.sciencedirect.com/science/article/pii/S2214804322001124#refdata001
+
 **Data availability**
 
 This paper uses data from the Taiwan Youth Project (TYP). The data is available at Survey Research Data Archive (SRDA), Academia Sinica.
@@ -11,3 +13,7 @@ This paper uses data from the Taiwan Youth Project (TYP). The data is available 
 **Code availability**
 
 I conduct the analysis in this paper using Stata 16. The codes (do files) of data construction and analysis are available at: https://github.com/yungyutsai/teacher_favoritism. The repository contains one file, 0_Start_All.do, for the execution order of the codes.
+
+**Author Contact Information**
+
+Yung-Yu Tsai, ytsai@mail.missouri.edu
